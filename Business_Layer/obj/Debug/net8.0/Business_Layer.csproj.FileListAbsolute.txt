@@ -1,0 +1,5 @@
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.csproj.AssemblyReference.cache
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.AssemblyInfoInputs.cache
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.AssemblyInfo.cs
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.csproj.CoreCompileInputs.cache
