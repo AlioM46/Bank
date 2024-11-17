@@ -1,5 +1,13 @@
+C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\bin\Debug\net8.0\DataAccess_Layer.deps.json
+C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\bin\Debug\net8.0\DataAccess_Layer.dll
+C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\bin\Debug\net8.0\DataAccess_Layer.pdb
 C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\obj\Debug\net8.0\DataAccess_Layer.csproj.AssemblyReference.cache
 C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\obj\Debug\net8.0\DataAccess_Layer.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\obj\Debug\net8.0\DataAccess_Layer.AssemblyInfoInputs.cache
 C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\obj\Debug\net8.0\DataAccess_Layer.AssemblyInfo.cs
 C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\obj\Debug\net8.0\DataAccess_Layer.csproj.CoreCompileInputs.cache
+C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\obj\Debug\net8.0\DataAccess_Layer.sourcelink.json
+C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\obj\Debug\net8.0\DataAccess_Layer.dll
+C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\obj\Debug\net8.0\refint\DataAccess_Layer.dll
+C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\obj\Debug\net8.0\DataAccess_Layer.pdb
+C:\Users\aliom\OneDrive\Desktop\Bank Project\DataAccess_Layer\obj\Debug\net8.0\ref\DataAccess_Layer.dll

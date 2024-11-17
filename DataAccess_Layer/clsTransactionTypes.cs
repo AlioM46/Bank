@@ -168,7 +168,7 @@ public static bool UpdateTransactionTypes(int TransactionTypeID, string Transact
 	}
 
 
-	public static DataTable GetAllTransactionTypes(int TransactionTypeID) {
+	public static DataTable GetAllTransactionTypes() {
 
 		DataTable dt = new DataTable();
 

@@ -183,7 +183,7 @@ public static bool UpdateLoanTypes(int LoanTypeID, decimal MinimumBalance, strin
 	}
 
 
-	public static DataTable GetAllLoanTypes(int LoanTypeID) {
+	public static DataTable GetAllLoanTypes() {
 
 		DataTable dt = new DataTable();
 

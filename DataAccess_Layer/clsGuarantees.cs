@@ -147,7 +147,7 @@ public static bool UpdateGuarantees(int GuaranteeID, string GuaranteeItem, int L
 			LoanID = (int)Reader["LoanID"];
 			EstimatedValue = (decimal)Reader["EstimatedValue"];
 		if (Reader["GuaranteeDescription"] != DBNull.Value) { 
-		GuaranteeDescription = (string)Reader[GuaranteeDescription];
+		GuaranteeDescription = (string)Reader["GuaranteeDescription"];
 		}
 		else {
 		GuaranteeDescription = "";

@@ -1,5 +1,16 @@
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\bin\Debug\net8.0\Business_Layer.deps.json
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\bin\Debug\net8.0\Business_Layer.dll
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\bin\Debug\net8.0\Business_Layer.pdb
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\bin\Debug\net8.0\DataAccess_Layer.dll
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\bin\Debug\net8.0\DataAccess_Layer.pdb
 C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.csproj.AssemblyReference.cache
 C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.AssemblyInfoInputs.cache
 C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.AssemblyInfo.cs
 C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.csproj.CoreCompileInputs.cache
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.sourcelink.json
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business.3851A4FC.Up2Date
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.dll
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\refint\Business_Layer.dll
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\Business_Layer.pdb
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Business_Layer\obj\Debug\net8.0\ref\Business_Layer.dll

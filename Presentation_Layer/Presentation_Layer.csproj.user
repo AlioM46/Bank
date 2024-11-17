@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Controls\ctrlDateTime.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\ctrlTopCustomersBalances.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\ctrlTotalBalances.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\ctrlYourAccountsInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="CustomControls\ctrlTextBoxValidation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Customer Forms\Accounts\Controls\ctrlShowAccountInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Customer Forms\Accounts\frmManageAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Customer Forms\Accounts\frmOpenAccountApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Customer Forms\Accounts\frmShowAccountInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Customer Forms\frmManageAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Customer Forms\Support\frmSupport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Customer Forms\Loans\frmAddNewLoan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Customer Forms\Loans\frmLoanPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Customer Forms\Loans\frmLoansManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Customer Forms\Transactions\frmManageTransaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\Customers\Controls\ctrlChangeCustomerInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="User Forms\Customers\Controls\ctrlCustomerInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="User Forms\Customers\frmAddEditCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\Customers\frmShowCustomerInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmChangeInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\frmDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\Applications\frmManageApplications.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\People\Controls\ctrlPersonInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="User Forms\People\Controls\ctrlPersonInfoWithFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="User Forms\People\frmAddUpdatePeople.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\People\frmShowPersonInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\Support\frmSupportResponse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\Users\Controls\ctrlUserInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="User Forms\Users\frmAddUpdateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\Customers\frmManageCustomers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\Users\frmManageUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\People\frmPeople.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\Support\frmSupportTickets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="User Forms\Users\frmShowUserInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

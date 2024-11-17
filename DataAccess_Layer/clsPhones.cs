@@ -168,7 +168,7 @@ public static bool UpdatePhones(int PhoneID, string PhoneNumber, int PersonID) {
 	}
 
 
-	public static DataTable GetAllPhones(int PhoneID) {
+	public static DataTable GetAllPhones() {
 
 		DataTable dt = new DataTable();
 
