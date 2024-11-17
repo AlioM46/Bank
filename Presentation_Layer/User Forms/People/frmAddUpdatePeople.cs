@@ -1,4 +1,5 @@
-﻿using Business_Layer;
+﻿using Azure.Core;
+using Business_Layer;
 using Presentation_Layer.Properties;
 using System;
 using System.Collections.Generic;
@@ -215,15 +216,23 @@ namespace Presentation_Layer.User_Forms.People
 
             if (string.IsNullOrEmpty(SourceImagePath))
             {
+             
+                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                // Navigate up from the bin\Debug folder to the Bank Project folder
+                string bankProjectPath = Path.GetFullPath(Path.Combine(currentDirectory, @"..\..\..\.."));
+                string resourcesPath = Path.Combine(bankProjectPath, "Resources");
+                MessageBox.Show(currentDirectory);
+                MessageBox.Show(bankProjectPath);
+                MessageBox.Show(resourcesPath);
+
                 if (rbMale.Checked)
                 {
-                    SourceImagePath = @"C:\Users\aliom\OneDrive\Desktop\man-icon.png";
+                    SourceImagePath = Path.Combine(resourcesPath, "man-icon.png");
                 }
                 else
                 {
-                    SourceImagePath = @"C:\Users\aliom\OneDrive\Desktop\woman-icon.png";
+                    SourceImagePath = Path.Combine(resourcesPath, "woman-icon.png");
                 }
-
             }
 
 
