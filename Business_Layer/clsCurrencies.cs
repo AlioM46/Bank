@@ -10,10 +10,10 @@ namespace Business_Layer
     public class clsCurrencies
     {
 
-        public int CurrencyID {  get; set; }
+        public int CurrencyID { get; set; }
         public string CurrencyName { get; set; }
         public string CurrencySymbol { get; set; }
-        public decimal ExchangeRateToUSD {  get; set; }
+        public decimal ExchangeRateToUSD { get; set; }
 
         public clsCurrencies(int CurrencyID, string CurrencyName, string CurrencySymbol, decimal ExchangeRateToUSD)
         {
@@ -28,7 +28,8 @@ namespace Business_Layer
             return DataAccess_Layer.clsCurrencies.GetAllCurrencies();
 
         }
-        public static clsCurrencies Find(int CurrencyID) {
+        public static clsCurrencies Find(int CurrencyID)
+        {
 
             string currencyName = "";
             string currencySymbol = "";
@@ -37,11 +38,31 @@ namespace Business_Layer
             if (DataAccess_Layer.clsCurrencies.Find(CurrencyID, ref currencyName, ref currencySymbol, ref exchangeRateToUSD))
             {
                 return new clsCurrencies(CurrencyID, currencyName, currencySymbol, exchangeRateToUSD);
-            } else
+            }
+            else
             {
                 return null;
             }
 
         }
+
+        public static clsCurrencies FindByCurrencyName(string CurrencyName)
+        {
+
+            string currencySymbol = "";
+            decimal exchangeRateToUSD = -1;
+            int CurrencyID = -1;
+
+            if (DataAccess_Layer.clsCurrencies.FindByCurrencyName(ref CurrencyID, CurrencyName, ref currencySymbol, ref exchangeRateToUSD))
+            {
+                return new clsCurrencies(CurrencyID, CurrencyName, currencySymbol, exchangeRateToUSD);
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
     }
 }

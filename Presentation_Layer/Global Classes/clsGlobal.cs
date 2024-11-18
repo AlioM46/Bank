@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Microsoft.Win32;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Data;
+using iTextSharp.text.pdf;
 
 namespace Presentation_Layer.Global_Classes
 {
@@ -17,10 +19,73 @@ namespace Presentation_Layer.Global_Classes
 
         public static clsCustomers GlobalCustomer { get; set; } = new clsCustomers();
 
-        public enum enRole { Customer = 1, User=2, Admin =3};
+        public enum enRole { Customer = 1, User = 2, Admin = 3 };
 
         public static enRole Role { get; set; }
 
+
+
+
+        public static void ExportTransactionsAsPDF()
+        {
+
+            try
+            {
+                // Step 1: Fetch data
+                DataTable transactions = clsTransactions.GetAllTransactionsRecordsInPeriodForCustomer(7, GlobalCustomer.CustomerID);
+
+                if (transactions == null || transactions.Rows.Count == 0)
+                {
+                    MessageBox.Show("No transactions found for the customer.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Step 2: Create PDF document
+                string pdfPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\Customer_{GlobalCustomer.CustomerID}_Transactions.pdf";
+
+                using (FileStream stream = new FileStream(pdfPath, FileMode.Create))
+                {
+                    iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 10, 10, 10, 10);
+                    PdfWriter.GetInstance(pdfDoc, stream);
+                    pdfDoc.Open();
+
+                    // Add Title
+                    pdfDoc.Add(new iTextSharp.text.Paragraph($"Customer ID: {GlobalCustomer.CustomerID} Transactions"));
+                    pdfDoc.Add(new iTextSharp.text.Paragraph($"Period | 7 Days"));
+                    pdfDoc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}\n\n"));
+
+                    // Step 3: Add Transactions Table
+                    PdfPTable table = new PdfPTable(transactions.Columns.Count);
+
+                    // Add headers
+                    foreach (DataColumn column in transactions.Columns)
+                    {
+                        table.AddCell(new iTextSharp.text.Phrase(column.ColumnName));
+                    }
+
+                    // Add rows
+                    foreach (DataRow row in transactions.Rows)
+                    {
+                        foreach (var cell in row.ItemArray)
+                        {
+                            table.AddCell(new iTextSharp.text.Phrase(cell.ToString()));
+                        }
+                    }
+
+                    pdfDoc.Add(table);
+                    pdfDoc.Close();
+                }
+
+                // Step 4: Notify user
+                MessageBox.Show($"PDF file created successfully at {pdfPath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while creating the PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
 
 
         public static string HashText(string input)
@@ -137,14 +202,15 @@ namespace Presentation_Layer.Global_Classes
             string registryPath = @$"HKEY_CURRENT_USER\SOFTWARE\BankApp\{userType}";
 
 
-            username = Registry.GetValue(registryPath, "keyUsername",null) as string;
+            username = Registry.GetValue(registryPath, "keyUsername", null) as string;
             password = Registry.GetValue(registryPath, "keyPassword", null) as string;
 
 
-            if (username  != null && !string.IsNullOrEmpty(password))
+            if (username != null && !string.IsNullOrEmpty(password))
             {
                 password = DecryptPassword(password);
-            } else
+            }
+            else
             {
                 return;
             }
@@ -187,7 +253,8 @@ namespace Presentation_Layer.Global_Classes
             if (Rememberme)
             {
                 RememberMe(userName, Password, "User");
-            } else
+            }
+            else
             {
                 DeleteRememberMeCredentials("User");
             }

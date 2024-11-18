@@ -15,7 +15,7 @@ namespace DataAccess_Layer
         {
             decimal Amount = 0;
 
-            string query = $" SELECT SUM(TransactionAmount) AS LastWeekTransactions  FROM Transactions JOIN Accounts ON Accounts.AccountID = Transactions.AccountID WHERE Accounts.AccountNumber = @AccountNumber AND TransactionTypeID = @TransactionTypeID AND TransactionDate BETWEEN DATEADD(DAY, -{Days}, GETDATE()) AND GETDATE();";
+            string query = $" SELECT SUM(TransactionAmount) AS LastWeekTransactions  FROM Transactions JOIN Accounts ON Accounts.AccountID = Transactions.AccountID WHERE Accounts.AccountNumber = @AccountNumber AND TransactionTypeID = @TransactionTypeID AND TransactionDate BETWEEN DATEADD(DAY, -@Days, GETDATE()) AND GETDATE();";
 
 
             using (SqlConnection Connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
@@ -24,6 +24,7 @@ namespace DataAccess_Layer
                 {
                     Command.Parameters.AddWithValue("@AccountNumber", AccountNumber);
                     Command.Parameters.AddWithValue("@TransactionTypeID", TransactionTypeID);
+                    Command.Parameters.AddWithValue("@Days", Days);
                     try
                     {
                         Connection.Open();

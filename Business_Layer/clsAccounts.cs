@@ -1,6 +1,7 @@
 using System;
 using DataAccess_Layer;
 using System.Data;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Business_Layer
 {
@@ -245,6 +246,8 @@ namespace Business_Layer
 
         public bool Withdraw(decimal Amount, int CustomerID, clsTransactions.enTransactions TransactionType = clsTransactions.enTransactions.Withdraw)
         {
+
+
             if (Amount > this.Balance || Amount < 0)
             {
                 return false;
@@ -261,7 +264,10 @@ namespace Business_Layer
 
 
             clsTransactions Transaction = new clsTransactions();
-            if (!Transaction.CreateTransaction(Amount, this.AccountID, TransactionType, CustomerID))
+
+            decimal AmountInUSD = (Amount * this.Currency.ExchangeRateToUSD);
+
+            if (!Transaction.CreateTransaction(AmountInUSD, this.AccountID, TransactionType, CustomerID))
             {
                 return false;
             }
@@ -272,7 +278,7 @@ namespace Business_Layer
         }
 
 
-        public bool Withdraw(decimal Amount )
+        public bool Withdraw(decimal Amount)
         {
             if (Amount > this.Balance || Amount < 0)
             {
@@ -286,7 +292,7 @@ namespace Business_Layer
             {
                 return false;
             }
-        
+
             return true;
 
 
@@ -295,7 +301,6 @@ namespace Business_Layer
 
         public bool Deposit(decimal AmountInAccountCurrency, int CustomerID, clsTransactions.enTransactions TransactionType = clsTransactions.enTransactions.Deposit)
         {
-
 
             if (AmountInAccountCurrency < 0)
             {
@@ -314,7 +319,8 @@ namespace Business_Layer
 
             clsTransactions Transaction = new clsTransactions();
 
-            if (!Transaction.CreateTransaction(AmountInAccountCurrency, this.AccountID, TransactionType, CustomerID))
+            decimal AmountInUSD = (AmountInAccountCurrency * this.Currency.ExchangeRateToUSD);
+            if (!Transaction.CreateTransaction(AmountInUSD, this.AccountID, TransactionType, CustomerID))
             {
                 return false;
             }
@@ -345,7 +351,7 @@ namespace Business_Layer
 
             clsTransactions Transaction = new clsTransactions();
 
-            if (!Transaction.CreateTransaction((AmountInUSD / this.Currency.ExchangeRateToUSD), this.AccountID, clsTransactions.enTransactions.Transfer, CustomerID))
+            if (!Transaction.CreateTransaction(AmountInUSD, this.AccountID, clsTransactions.enTransactions.Transfer, CustomerID))
             {
                 return false;
             }
@@ -385,5 +391,38 @@ namespace Business_Layer
         }
 
 
+        public bool CanWithdraw(int DaysPeriod, decimal AmountInDollar)
+        {
+
+            if (AmountInDollar <= 0)
+            {
+                return false;
+            }
+
+            decimal DailyWithdraw = clsAccounts.GetTransactionsInPeriod(this.AccountNumber, DaysPeriod, clsTransactions.enTransactions.Withdraw);
+
+            // Note: This Function Above, return Transactions Amounts In (Dollar)($)
+
+            return ((AmountInDollar + DailyWithdraw) < this.AccountTypes.WithdrawDailyLimit);
+        }
+
+
+        public bool CanDeposit(int DaysPeriod, decimal AmountInDollar)
+        {
+
+            if (AmountInDollar <= 0)
+            {
+                return false;
+            }
+
+
+            decimal DailyDeposit = clsAccounts.GetTransactionsInPeriod(this.AccountNumber, DaysPeriod, clsTransactions.enTransactions.Deposit);
+
+            // Note: This Function Above, return Transactions Amounts In (Dollar)($)
+
+            return ((AmountInDollar + DailyDeposit) < this.AccountTypes.DepositDailyLimit);
+        }
+
     }
+
 }

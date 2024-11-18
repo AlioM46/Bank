@@ -97,3 +97,5 @@ C:\Users\aliom\OneDrive\Desktop\Bank Project\Presentation_Layer\obj\Debug\net8.0
 C:\Users\aliom\OneDrive\Desktop\Bank Project\Presentation_Layer\obj\Debug\net8.0-windows\Presentation_Layer.User_Forms.Customers.Controls.ctrlChangeCustomerInfo.resources
 C:\Users\aliom\OneDrive\Desktop\Bank Project\Presentation_Layer\obj\Debug\net8.0-windows\Presentation_Layer.User_Forms.Support.frmSupportResponse.resources
 C:\Users\aliom\OneDrive\Desktop\Bank Project\Presentation_Layer\obj\Debug\net8.0-windows\Presentation_Layer.User_Forms.frmDashboard.resources
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Presentation_Layer\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
+C:\Users\aliom\OneDrive\Desktop\Bank Project\Presentation_Layer\bin\Debug\net8.0-windows\itextsharp.dll

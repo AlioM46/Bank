@@ -35,7 +35,6 @@
             manageApplicationsToolStripMenuItem = new ToolStripMenuItem();
             supportTicketsToolStripMenuItem = new ToolStripMenuItem();
             changeInformationToolStripMenuItem = new ToolStripMenuItem();
-            enterDashboardToolStripMenuItem = new ToolStripMenuItem();
             pictureBox1 = new PictureBox();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -45,12 +44,13 @@
             // 
             menuStrip1.Font = new Font("MS Reference Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             menuStrip1.GripMargin = new Padding(2);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { manageUsersToolStripMenuItem, peopleToolStripMenuItem, manageCustomersToolStripMenuItem, manageApplicationsToolStripMenuItem, supportTicketsToolStripMenuItem, changeInformationToolStripMenuItem, enterDashboardToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { manageUsersToolStripMenuItem, peopleToolStripMenuItem, manageCustomersToolStripMenuItem, manageApplicationsToolStripMenuItem, supportTicketsToolStripMenuItem, changeInformationToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1904, 37);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
+            menuStrip1.ItemClicked += menuStrip1_ItemClicked;
             // 
             // manageUsersToolStripMenuItem
             // 
@@ -95,13 +95,6 @@
             changeInformationToolStripMenuItem.Text = "Change Information";
             changeInformationToolStripMenuItem.Click += changeInformationToolStripMenuItem_Click;
             // 
-            // enterDashboardToolStripMenuItem
-            // 
-            enterDashboardToolStripMenuItem.Name = "enterDashboardToolStripMenuItem";
-            enterDashboardToolStripMenuItem.Size = new Size(241, 33);
-            enterDashboardToolStripMenuItem.Text = "Enter Dashboard";
-            enterDashboardToolStripMenuItem.Click += enterDashboardToolStripMenuItem_Click;
-            // 
             // pictureBox1
             // 
             pictureBox1.Location = new Point(1426, 0);
@@ -120,7 +113,7 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "frmUser";
-            Text = "frmUser";
+            Text = "Admins Dashboard";
             WindowState = FormWindowState.Maximized;
             Load += frmUser_Load;
             menuStrip1.ResumeLayout(false);
@@ -139,7 +132,6 @@
         private ToolStripMenuItem changeInformationToolStripMenuItem;
         private ToolStripMenuItem manageUsersToolStripMenuItem;
         private ToolStripMenuItem peopleToolStripMenuItem;
-        private ToolStripMenuItem enterDashboardToolStripMenuItem;
         private PictureBox pictureBox1;
     }
 }

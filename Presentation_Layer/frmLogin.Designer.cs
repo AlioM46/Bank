@@ -270,7 +270,7 @@
             Controls.Add(tabControl1);
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "frmLogin";
+            Text = "Login Page";
             Load += frmLogin_Load;
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             tpAdminLogin.ResumeLayout(false);

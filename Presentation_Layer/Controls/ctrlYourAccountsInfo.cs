@@ -1,20 +1,16 @@
 ﻿using Business_Layer;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using Presentation_Layer.Global_Classes;
 using System.Data;
-using System.Diagnostics.Metrics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Presentation_Layer.Controls
 {
     public partial class ctrlYourAccountsInfo : UserControl
     {
         private DataTable _AccountsTable = new DataTable();
+        private clsAccounts Account;
+        private clsCurrencies Currency;
+        private DataTable _CurrenciesTable = new DataTable();
+
         public ctrlYourAccountsInfo()
         {
             InitializeComponent();
@@ -47,6 +43,7 @@ namespace Presentation_Layer.Controls
 
                 return;
             }
+            _FillCurrenciesComboBox();
             _FillComboBox();
         }
 
@@ -54,16 +51,115 @@ namespace Presentation_Layer.Controls
 
         private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            DataRow rowValue = _AccountsTable.Rows[comboBox1.SelectedIndex];
 
-            lblBalance.Text = rowValue["Balance"].ToString();
-            lblAccType.Text = rowValue["AccountType"].ToString();
-            lblCreatedDate.Text = rowValue["CreatedDate"].ToString();
-            lblCurrency.Text = rowValue["CurrencyName"].ToString();
+            if (comboBox1.Text.Length <= 0)
+            {
+                return;
+            }
 
-            lblDeposit.Text = clsAccounts.GetTransactionsInPeriod(rowValue["AccountNumber"].ToString(), 7, clsTransactions.enTransactions.Deposit).ToString("N2");
-            lblWithdraw.Text = clsAccounts.GetTransactionsInPeriod(rowValue["AccountNumber"].ToString(), 7, clsTransactions.enTransactions.Withdraw).ToString("N2");
 
+            //DataRow rowValue = _AccountsTable.Rows[comboBox1.SelectedIndex];
+
+            Account = clsAccounts.FindByAccountNumber(comboBox1.Text);
+
+            if (Account == null)
+            {
+                return;
+            }
+
+            lblCurrency.Text = Account.Currency.CurrencyName;
+            lblBalance.Text = Account.Balance + " " + Account.Currency.CurrencySymbol;
+            lblAccType.Text = Account.AccountTypes.AccountType;
+            lblCreatedDate.Text = Account.CreatedDate.ToString();
+
+            lblDeposit.Text = clsAccounts.GetTransactionsInPeriod(comboBox1.Text, 7, clsTransactions.enTransactions.Deposit).ToString("N2");
+            lblWithdraw.Text = clsAccounts.GetTransactionsInPeriod(comboBox1.Text, 7, clsTransactions.enTransactions.Withdraw).ToString("N2");
+
+            lblDeposit.Text += " USD";
+            lblWithdraw.Text += " USD";
+
+            for (int i = 0; i < _CurrenciesTable.Rows.Count; i++)
+            {
+
+                if (_CurrenciesTable.Rows[i]["CurrencyName"].ToString() == Account.Currency.CurrencyName)
+                {
+                    cbCurrencies.SelectedIndex = i;
+                    break;
+                }
+
+            }
+        }
+
+        private void gb1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void _FillCurrenciesComboBox()
+        {
+            _CurrenciesTable = clsCurrencies.GetAllCurrencies();
+
+            if (_CurrenciesTable.Rows.Count < 0 || _CurrenciesTable == null)
+            {
+                return;
+            }
+            cbCurrencies.DisplayMember = "CurrencyName";
+            cbCurrencies.DataSource = _CurrenciesTable;
+
+
+
+
+        }
+
+        private void cbCurrencies_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbCurrencies.SelectedIndex < 0 || cbCurrencies.SelectedIndex >= _CurrenciesTable.Rows.Count)
+            {
+                return;
+            }
+
+            // Fetch the selected row from the data table
+            DataRow selectedRow = _CurrenciesTable.Rows[cbCurrencies.SelectedIndex];
+
+
+
+            // Use the selected currency name to find the corresponding currency
+            string selectedCurrencyName = selectedRow["CurrencyName"].ToString();
+
+            Currency = clsCurrencies.FindByCurrencyName(selectedCurrencyName);
+
+            if (Currency == null)
+            {
+                MessageBox.Show("Selected currency could not be found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show($"Are You Sure That You want to Change Your Account Currency To {Currency.CurrencyName}?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                return;
+            if (Account.CurrencyID == Currency.CurrencyID)
+            {
+                MessageBox.Show("You Can't Change To Same Account Currency", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            decimal BalanceInDollar = (Account.Balance * Account.Currency.ExchangeRateToUSD);
+            decimal NewBalanceInNewCurrency = (BalanceInDollar / Currency.ExchangeRateToUSD);
+            Account.Balance = NewBalanceInNewCurrency;
+            Account.CurrencyID = Currency.CurrencyID;
+
+            if (!Account.Save())
+            {
+                MessageBox.Show("Error During Change Account Currency", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            MessageBox.Show("Currency Has Been Changed Successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ctrlYourAccountsInfo_Load(null, null);
 
         }
     }

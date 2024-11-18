@@ -113,12 +113,31 @@ namespace Presentation_Layer.Customer_Forms.Transactions
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '.' && tbAmount.Text.Contains('.'))
+
+            // Allow control keys (backspace, delete, etc.)
+            if (char.IsControl(e.KeyChar))
             {
-                e.Handled = true;
+                e.Handled = false;
+                return;
             }
 
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+            // Allow digits
+            if (char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+                return;
+            }
+
+            // Allow a single decimal point
+            if (e.KeyChar == '.' && !tbAmount.Text.Contains('.'))
+            {
+                e.Handled = false;
+                return;
+            }
+
+            // Disallow all other characters
+            e.Handled = true;
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -142,6 +161,13 @@ namespace Presentation_Layer.Customer_Forms.Transactions
         {
 
 
+
+
+            if (!ctrlYouAccount.AccountInfo.CanDeposit((int)clsTransactions.enTransactions.Deposit, AmountInUSD))
+            {
+                MessageBox.Show($"You Can't Deposit Any Money, You Hit The Maximum Limit Today, {ctrlYouAccount.AccountInfo.AccountTypes.DepositDailyLimit.ToString()}", "BLOCK", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             if (!ctrlYouAccount.AccountInfo.Deposit(AmountInAccountCurrency, Global_Classes.clsGlobal.GlobalCustomer.CustomerID, clsTransactions.enTransactions.Deposit))
             {
@@ -170,9 +196,24 @@ namespace Presentation_Layer.Customer_Forms.Transactions
             //AmountInAccountCurrency = (_Amount * ExchangeRateToUSD) / ctrlYouAccount.AccountInfo.Currency.ExchangeRateToUSD;
 
 
+
             if (AmountInUSD > ctrlYouAccount.AccountMaximumBalance)
             {
-                MessageBox.Show($"You Can't Withdraw More Than {ctrlYouAccount.AccountMaximumBalance.ToString("N2")} USD or {ctrlYouAccount.AccountInfo.Balance.ToString("N2")} {ctrlYouAccount.AccountInfo.Currency.CurrencyName}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string SubText = "";
+                if (ctrlYouAccount.AccountInfo.Currency.CurrencyName != "USD")
+                {
+                    SubText = $" or {ctrlYouAccount.AccountInfo.Balance.ToString("N2")} {ctrlYouAccount.AccountInfo.Currency.CurrencyName}";
+                }
+                MessageBox.Show($"You Can't Withdraw More Than {ctrlYouAccount.AccountMaximumBalance.ToString("N2")} USD {SubText}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+
+
+            if (!ctrlYouAccount.AccountInfo.CanWithdraw((int)clsTransactions.enTransactions.Withdraw, AmountInUSD))
+            {
+                MessageBox.Show($"You Can't Withdraw Any Money, You Hit The Maximum Limit Today, {ctrlYouAccount.AccountInfo.AccountTypes.DepositDailyLimit.ToString()}", "BLOCK", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

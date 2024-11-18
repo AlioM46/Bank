@@ -74,7 +74,7 @@ namespace Presentation_Layer
 
         private void frmUser_Load(object sender, EventArgs e)
         {
-
+            
             pictureBox1.ImageLocation = Global_Classes.clsGlobal.GlobalUser.People.ImagePath;
 
             // Make the PictureBox circular
@@ -87,7 +87,6 @@ namespace Presentation_Layer
             if (clsGlobal.Role == clsGlobal.enRole.User)
             {
                 manageUsersToolStripMenuItem.Visible = false;
-                enterDashboardToolStripMenuItem.Visible = false;
             }
         }
 
@@ -109,6 +108,11 @@ namespace Presentation_Layer
 
             this.Close();
             clsGlobal.GlobalUser = null;
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

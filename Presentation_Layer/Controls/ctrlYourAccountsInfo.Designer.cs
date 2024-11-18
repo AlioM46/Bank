@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             gb1 = new GroupBox();
+            label6 = new Label();
+            cbCurrencies = new ComboBox();
+            button1 = new Button();
             lblWithdraw = new Label();
             lblDeposit = new Label();
             label8 = new Label();
@@ -48,6 +51,9 @@
             // 
             // gb1
             // 
+            gb1.Controls.Add(label6);
+            gb1.Controls.Add(cbCurrencies);
+            gb1.Controls.Add(button1);
             gb1.Controls.Add(lblWithdraw);
             gb1.Controls.Add(lblDeposit);
             gb1.Controls.Add(label8);
@@ -65,10 +71,42 @@
             gb1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             gb1.Location = new Point(3, 3);
             gb1.Name = "gb1";
-            gb1.Size = new Size(776, 250);
+            gb1.Size = new Size(948, 409);
             gb1.TabIndex = 2;
             gb1.TabStop = false;
             gb1.Text = "Your Accounts Info:";
+            gb1.Enter += gb1_Enter;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.ForeColor = Color.IndianRed;
+            label6.Location = new Point(609, 81);
+            label6.Name = "label6";
+            label6.Size = new Size(333, 21);
+            label6.TabIndex = 18;
+            label6.Text = "*This Will Change Your Account Currency.*";
+            // 
+            // cbCurrencies
+            // 
+            cbCurrencies.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCurrencies.FormattingEnabled = true;
+            cbCurrencies.Location = new Point(763, 27);
+            cbCurrencies.Name = "cbCurrencies";
+            cbCurrencies.Size = new Size(179, 29);
+            cbCurrencies.TabIndex = 17;
+            cbCurrencies.SelectedIndexChanged += cbCurrencies_SelectedIndexChanged;
+            // 
+            // button1
+            // 
+            button1.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            button1.Location = new Point(804, 353);
+            button1.Name = "button1";
+            button1.Size = new Size(138, 50);
+            button1.TabIndex = 16;
+            button1.Text = "CONFIRM";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // lblWithdraw
             // 
@@ -114,7 +152,7 @@
             // 
             lblCreatedDate.AutoSize = true;
             lblCreatedDate.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCreatedDate.Location = new Point(551, 199);
+            lblCreatedDate.Location = new Point(282, 353);
             lblCreatedDate.Name = "lblCreatedDate";
             lblCreatedDate.Size = new Size(41, 21);
             lblCreatedDate.TabIndex = 11;
@@ -124,7 +162,7 @@
             // 
             lblCurrency.AutoSize = true;
             lblCurrency.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCurrency.Location = new Point(551, 149);
+            lblCurrency.Location = new Point(282, 303);
             lblCurrency.Name = "lblCurrency";
             lblCurrency.Size = new Size(41, 21);
             lblCurrency.TabIndex = 10;
@@ -134,7 +172,7 @@
             // 
             lblAccType.AutoSize = true;
             lblAccType.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblAccType.Location = new Point(551, 99);
+            lblAccType.Location = new Point(282, 253);
             lblAccType.Name = "lblAccType";
             lblAccType.Size = new Size(41, 21);
             lblAccType.TabIndex = 9;
@@ -144,7 +182,7 @@
             // 
             lblBalance.AutoSize = true;
             lblBalance.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblBalance.Location = new Point(551, 49);
+            lblBalance.Location = new Point(282, 203);
             lblBalance.Name = "lblBalance";
             lblBalance.Size = new Size(41, 21);
             lblBalance.TabIndex = 8;
@@ -154,7 +192,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(379, 199);
+            label5.Location = new Point(28, 353);
             label5.Name = "label5";
             label5.Size = new Size(92, 21);
             label5.TabIndex = 7;
@@ -164,7 +202,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(379, 149);
+            label4.Location = new Point(28, 303);
             label4.Name = "label4";
             label4.Size = new Size(79, 21);
             label4.TabIndex = 6;
@@ -174,7 +212,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(379, 99);
+            label3.Location = new Point(28, 253);
             label3.Name = "label3";
             label3.Size = new Size(114, 21);
             label3.TabIndex = 5;
@@ -184,7 +222,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(379, 49);
+            label2.Location = new Point(28, 203);
             label2.Name = "label2";
             label2.Size = new Size(70, 21);
             label2.TabIndex = 4;
@@ -216,7 +254,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(gb1);
             Name = "ctrlYourAccountsInfo";
-            Size = new Size(782, 256);
+            Size = new Size(954, 415);
             Load += ctrlYourAccountsInfo_Load;
             gb1.ResumeLayout(false);
             gb1.PerformLayout();
@@ -240,5 +278,8 @@
         private Label lblDeposit;
         private Label label8;
         private Label label9;
+        private Button button1;
+        private Label label6;
+        private ComboBox cbCurrencies;
     }
 }

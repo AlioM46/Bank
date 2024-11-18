@@ -33,7 +33,7 @@ namespace Business_Layer
             Deposit = 1,
             Withdraw = 2,
             Transfer = 3,
-          LoanPayment = 4,
+            LoanPayment = 4,
             Refund = 5
         }
 
@@ -157,16 +157,17 @@ namespace Business_Layer
             return DataAccess_Layer.clsTransactions.GetAllTransactions();
         }
 
-        public bool CreateTransaction(decimal Amount, int AccountID,  enTransactions TransactionTypeID, int CustomerID)
+        public bool CreateTransaction(decimal AmountInUSD, int AccountID, enTransactions TransactionTypeID, int CustomerID)
         {
             this.AccountID = AccountID;
-            this.TransactionAmount = Amount;
+            this.TransactionAmount = AmountInUSD;
             this.TransactionTypeID = (int)TransactionTypeID;
 
-            this.TransactionDate = DateTime.Now ;
+            this.TransactionDate = DateTime.Now;
             this.CustomerID = CustomerID;
 
-            if (!Save()) {
+            if (!Save())
+            {
                 return false;
             }
 
@@ -174,5 +175,10 @@ namespace Business_Layer
 
         }
 
+
+        public static DataTable GetAllTransactionsRecordsInPeriodForCustomer(int Days, int CustomerID)
+        {
+            return DataAccess_Layer.clsTransactions.GetAllTransactionsRecordsInPeriod(Days, CustomerID);
+        }
     }
 }

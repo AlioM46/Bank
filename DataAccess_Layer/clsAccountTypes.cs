@@ -10,10 +10,10 @@ namespace DataAccess_Layer
     {
 
 
-        public static int AddNewAccountTypes(string AccountType, decimal Fees, string Description)
+        public static int AddNewAccountTypes(string AccountType, decimal Fees, string Description, decimal DailyDepositLimit, decimal DailyWithdrawLimit)
         {
             int AccountTypeID = -1;
-            string query = $"INSERT INTO AccountTypes (AccountType, Fees, Description)VALUES (@AccountType, @Fees, @Description); SELECT SCOPE_IDENTITY();";
+            string query = $"INSERT INTO AccountTypes (AccountType, Fees, Description, DepositDailyLimit, WithdrawDailyLimit)VALUES (@AccountType, @Fees, @Description, @DailyDepositLimit, @DailyWithdrawLimit); SELECT SCOPE_IDENTITY();";
 
             using (SqlConnection Connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -24,6 +24,12 @@ namespace DataAccess_Layer
                     Command.Parameters.AddWithValue("@AccountType", AccountType);
 
                     Command.Parameters.AddWithValue("@Fees", Fees);
+
+
+                    Command.Parameters.AddWithValue("@DailyWithdrawLimit", DailyWithdrawLimit);
+
+                    Command.Parameters.AddWithValue("@DailyDepositLimit", DailyDepositLimit);
+
 
                     if (Description != "" && Description != null)
                     {
@@ -57,11 +63,20 @@ namespace DataAccess_Layer
 
             return AccountTypeID;
         }
-        public static bool UpdateAccountTypes(int AccountTypeID, string AccountType, decimal Fees, string Description)
+        public static bool UpdateAccountTypes(int AccountTypeID, string AccountType, decimal Fees, string Description, decimal DepositDailyLimit, decimal WithdrawDailyLimit)
         {
             int RowsAffected = -1;
-            string query = "UPDATE AccountTypes SET AccountType = @AccountType, SET Fees = @Fees, SET Description = @Description WHERE AccountTypeID = @AccountTypeID;"
-    ;
+            string query = @"
+        UPDATE AccountTypes 
+        SET 
+            AccountType = @AccountType, 
+            Fees = @Fees, 
+            Description = @Description, 
+            DepositDailyLimit = @DepositDailyLimit, 
+            WithdrawDailyLimit = @WithdrawDailyLimit 
+        WHERE AccountTypeID = @AccountTypeID;";
+
+
 
             using (SqlConnection Connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -70,8 +85,13 @@ namespace DataAccess_Layer
 
 
                     Command.Parameters.AddWithValue("@AccountType", AccountType);
+                    Command.Parameters.AddWithValue("@AccountTypeID", AccountTypeID);
 
                     Command.Parameters.AddWithValue("@Fees", Fees);
+
+                    Command.Parameters.AddWithValue("@DepositDailyLimit", DepositDailyLimit);
+                    Command.Parameters.AddWithValue("@WithdrawDailyLimit", WithdrawDailyLimit);
+
 
                     if (Description != "" && Description != null)
                     {
@@ -131,7 +151,7 @@ namespace DataAccess_Layer
         }
 
 
-        public static bool Find(int AccountTypeID, ref string AccountType, ref decimal Fees, ref string Description)
+        public static bool Find(int AccountTypeID, ref string AccountType, ref decimal Fees, ref string Description, ref decimal DailyWithdrawLimit, ref decimal DailyDepositLimit)
         {
             bool IsFound = false;
             string query = "select * from AccountTypes where AccountTypeID = @AccountTypeID";
@@ -149,6 +169,10 @@ namespace DataAccess_Layer
                         {
 
                             IsFound = true;
+
+                            DailyDepositLimit = (decimal)Reader["DepositDailyLimit"];
+                            DailyWithdrawLimit = (decimal)Reader["WithdrawDailyLimit"];
+
                             AccountType = (string)Reader["AccountType"];
                             Fees = (decimal)Reader["Fees"];
                             if (Reader["Description"] != DBNull.Value)

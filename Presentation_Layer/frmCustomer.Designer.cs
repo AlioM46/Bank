@@ -128,7 +128,7 @@
             // 
             // ctrlDateTime1
             // 
-            ctrlDateTime1.Location = new Point(1358, 108);
+            ctrlDateTime1.Location = new Point(897, 598);
             ctrlDateTime1.Name = "ctrlDateTime1";
             ctrlDateTime1.Size = new Size(419, 317);
             ctrlDateTime1.TabIndex = 2;
@@ -142,9 +142,9 @@
             // 
             // ctrlYourAccountsInfo1
             // 
-            ctrlYourAccountsInfo1.Location = new Point(985, 431);
+            ctrlYourAccountsInfo1.Location = new Point(850, 140);
             ctrlYourAccountsInfo1.Name = "ctrlYourAccountsInfo1";
-            ctrlYourAccountsInfo1.Size = new Size(792, 262);
+            ctrlYourAccountsInfo1.Size = new Size(961, 417);
             ctrlYourAccountsInfo1.TabIndex = 4;
             // 
             // ctrlTotalBalances1
@@ -157,11 +157,11 @@
             // btnDownload
             // 
             btnDownload.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnDownload.Location = new Point(20, 996);
+            btnDownload.Location = new Point(20, 921);
             btnDownload.Name = "btnDownload";
-            btnDownload.Size = new Size(236, 33);
+            btnDownload.Size = new Size(289, 69);
             btnDownload.TabIndex = 6;
-            btnDownload.Text = "Download as PDF";
+            btnDownload.Text = "Download Last 7 Days Report Download as PDF";
             btnDownload.UseVisualStyleBackColor = true;
             btnDownload.Click += btnDownload_Click;
             // 

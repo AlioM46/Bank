@@ -82,5 +82,46 @@ namespace DataAccess_Layer
             return IsFound;
 
         }
+
+
+        public static bool FindByCurrencyName(ref int CurrencyID, string CurrencyName, ref string CurrencySymbol, ref decimal ExchangeRateToUSD)
+        {
+
+            bool IsFound = false;
+            string query = "select * from Currencies Where CurrencyName = @CurrencyName ";
+
+            using (SqlConnection Connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (SqlCommand Command = new SqlCommand(query, Connection))
+                {
+
+                    Command.Parameters.AddWithValue("@CurrencyName", CurrencyName);
+                    try
+                    {
+                        Connection.Open();
+                        SqlDataReader Reader = Command.ExecuteReader();
+
+
+                        if (Reader.Read())
+                        {
+
+                            CurrencyID = (int)Reader["CurrencyID"];
+                            CurrencySymbol = (string)Reader["CurrencySymbol"];
+                            ExchangeRateToUSD = (decimal)Reader["ExchangeRateToUSD"];
+                            IsFound = true;
+
+                        }
+                        Reader.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log exception or handle accordingly
+                        IsFound = false;
+                    }
+                }
+            }
+            return IsFound;
+
+        }
     }
 }

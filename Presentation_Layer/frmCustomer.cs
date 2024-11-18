@@ -111,9 +111,11 @@ namespace Presentation_Layer
             HandleForms(frm);
         }
 
+        
+
         private void btnDownload_Click(object sender, EventArgs e)
         {
-
+            clsGlobal.ExportTransactionsAsPDF();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

@@ -24,7 +24,7 @@ namespace Presentation_Layer.Customer_Forms.Loans
 
 
         private clsLoans Loan;
-      private  decimal LoanReminder ;
+        private decimal LoanReminder;
 
         public frmLoanPayment(int LoanID)
         {
@@ -61,10 +61,37 @@ namespace Presentation_Layer.Customer_Forms.Loans
                 return;
             }
 
+            // First : Check The Account
+            // Then Check If He Hit the Daily Limit.
+            clsAccounts Account = clsAccounts.FindByAccountNumber(ctrlShowAccountInfo1.AccountNumber);
 
-            if (Loan.AllPayments == Loan.Amount || Loan.AllPayments> Loan.Amount)
+            if (Account == null)
             {
-                MessageBox.Show("Your Loan Are Fully Paid", "No Worries", MessageBoxButtons.OK, MessageBoxIcon.Information );
+                MessageBox.Show("Could Not Find The Loan", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+
+            decimal convertedAmount = _Amount / Account.Currency.ExchangeRateToUSD;
+
+
+
+
+
+            if (!Account.CanWithdraw(1, _Amount))
+            {
+                MessageBox.Show($"You Can't Withdraw Any Money, You Hit The Maximum Limit Today, {Account.AccountTypes.WithdrawDailyLimit.ToString()}", "BLOCK", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+
+            // Second : Check The Loan
+
+            if (Loan.AllPayments == Loan.Amount || Loan.AllPayments > Loan.Amount)
+            {
+                MessageBox.Show("Your Loan Are Fully Paid", "No Worries", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -96,50 +123,35 @@ namespace Presentation_Layer.Customer_Forms.Loans
 
                 if (MessageBox.Show($"Are You Sure To Pay All The Loan ${LoanReminder.ToString("N2")}? ", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                     return;
-                
+
                 _Amount = LoanReminder;
             }
 
             Loan.LastUpdateDate = DateTime.Now;
             Loan.AllPayments += _Amount;
 
-            if(Loan.AllPayments == Loan.Amount)
+            if (Loan.AllPayments == Loan.Amount)
             {
                 Loan.Status = (int)clsLoans.enLoanStatus.Fulfilled;
                 btnPay.Enabled = false;
                 tbAmount.Enabled = false;
             }
 
-            if (!Loan.Save())
+            if (!Loan.Save() && !Account.Withdraw(Math.Round(convertedAmount, 3), clsGlobal.GlobalCustomer.CustomerID, clsTransactions.enTransactions.LoanPayment))
             {
-                MessageBox.Show("Error During Save Loan", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error During Pay The Loan", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
 
             // Withdraw Money From the Account -> Make Sure To Exchange The Currency Well.
 
-
-            clsAccounts Account = clsAccounts.FindByAccountNumber(ctrlShowAccountInfo1.AccountNumber);
-
-            if (Account == null)
-            {
-                MessageBox.Show("Could Not Find The Loan", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            decimal convertedAmount = _Amount / Account.Currency.ExchangeRateToUSD;
-
-            if (!Account.Withdraw(Math.Round(convertedAmount, 3), clsGlobal.GlobalCustomer.CustomerID, clsTransactions.enTransactions.LoanPayment))
-            {
-                MessageBox.Show("Error During Save Withdraw from Your Account", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
-
             tbAmount.Text = "";
             ctrlShowAccountInfo1.AccountMaximumBalance = Math.Round(Account.Balance * Account.Currency.ExchangeRateToUSD, 3);
             SetLoanLabels();
+
+
+
             //if (!Account.Save())
             //{
             //    MessageBox.Show("Error During Save Account New Balance", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -201,7 +213,7 @@ namespace Presentation_Layer.Customer_Forms.Loans
                 return; // Allow this character if it's the first decimal point
             }
 
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) ;
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 }
